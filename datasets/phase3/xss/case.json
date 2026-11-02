@@ -1,0 +1,9 @@
+{
+  "case_id": "xss",
+  "category": "Cross-site scripting",
+  "expected_secure_behavior": "Escape untrusted text before interpolating it into HTML output.",
+  "expected_rule_ids": [
+    "datasets.phase3.xss.securefix.python.xss.unescaped-html-interpolation"
+  ],
+  "semgrep_support": "not_assessed"
+}

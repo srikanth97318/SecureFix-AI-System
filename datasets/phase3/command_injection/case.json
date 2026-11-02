@@ -1,0 +1,7 @@
+{
+  "case_id": "command-injection",
+  "category": "Command injection",
+  "expected_secure_behavior": "Pass command arguments as a sequence and do not enable shell interpretation.",
+  "expected_rule_ids": ["python.lang.security.audit.subprocess-shell-true.subprocess-shell-true"],
+  "semgrep_support": "not_assessed"
+}

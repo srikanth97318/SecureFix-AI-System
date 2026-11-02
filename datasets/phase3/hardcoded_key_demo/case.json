@@ -1,0 +1,9 @@
+{
+  "case_id": "hardcoded-credential",
+  "category": "Hardcoded credential",
+  "expected_secure_behavior": "Obtain credentials from a runtime secret source rather than a source-code literal.",
+  "expected_rule_ids": [
+    "datasets.phase3.hardcoded_key_demo.securefix.python.hardcoded-credential.api-key-literal"
+  ],
+  "semgrep_support": "not_assessed"
+}

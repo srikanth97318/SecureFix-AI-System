@@ -1,0 +1,10 @@
+"""Default settings for SecureFix AI."""
+
+DEFAULT_SEMGREP_CONFIG = "auto"
+DEFAULT_RUN_SEMGREP_CONFIG = "p/security-audit"
+DEFAULT_TIMEOUT_SECONDS = 120
+DEFAULT_CONTEXT_LINES = 5
+DEFAULT_REPORT_PATH = "reports/securefix-report.json"
+DEFAULT_GEMINI_MODEL = "gemini-3.5-flash-lite"
+DEFAULT_LLM_TIMEOUT_SECONDS = 90
+DEFAULT_REPAIR_REPORT_DIRECTORY = "reports"

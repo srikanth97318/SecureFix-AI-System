@@ -1,0 +1,13 @@
+rules:
+  - id: securefix.python.xss.unescaped-html-interpolation
+    languages:
+      - python
+    severity: ERROR
+    message: Untrusted text is interpolated into HTML without escaping.
+    metadata:
+      category: security
+      cwe:
+        - "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      vulnerability_class:
+        - Cross-Site Scripting (XSS)
+    pattern: return f"<p>{name}</p>"

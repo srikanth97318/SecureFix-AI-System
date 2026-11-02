@@ -1,0 +1,18 @@
+rules:
+  - id: securefix.python.sql-injection.string-interpolation
+    languages:
+      - python
+    severity: ERROR
+    message: User-controlled data is interpolated into a SQL query before execution.
+    metadata:
+      category: security
+      cwe:
+        - "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      vulnerability_class:
+        - SQL Injection
+    patterns:
+      - pattern: $QUERY = f"SELECT * FROM users WHERE name = '{$NAME}'"
+      - pattern-inside: |
+          def $FUNC(...):
+            ...
+            $CURSOR.execute($QUERY)

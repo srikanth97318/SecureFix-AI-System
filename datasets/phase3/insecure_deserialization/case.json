@@ -1,0 +1,7 @@
+{
+  "case_id": "insecure-deserialization",
+  "category": "Insecure deserialization",
+  "expected_secure_behavior": "Parse untrusted serialized data with a non-executable data format.",
+  "expected_rule_ids": ["python.lang.security.deserialization.pickle.avoid-pickle"],
+  "semgrep_support": "not_assessed"
+}

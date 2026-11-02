@@ -1,0 +1,9 @@
+{
+  "case_id": "sql-injection",
+  "category": "SQL injection",
+  "expected_secure_behavior": "Bind user-supplied values as SQL parameters rather than interpolating them into the query.",
+  "expected_rule_ids": [
+    "datasets.phase3.sql_injection.securefix.python.sql-injection.string-interpolation"
+  ],
+  "semgrep_support": "not_assessed"
+}
