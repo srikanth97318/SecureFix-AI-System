@@ -12,6 +12,7 @@ dependencies = []
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "Pygments>=2.15"]
 llm = ["google-genai>=1.0", "python-dotenv>=1.0"]
+web = ["streamlit>=1.40"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

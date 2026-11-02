@@ -116,6 +116,82 @@ bwrap --version
 
 SecureFix refuses to run candidate tests if Bubblewrap is missing or namespaces cannot be created. The validation command requires Semgrep, Bubblewrap, Gemini API access, and pytest within the isolated candidate copy.
 
+## Streamlit web interface
+
+The SecureFix AI dashboard is a thin interface over the existing `securefix.main`
+CLI. It uses the same Semgrep scan and isolated repair/verification workflow; it
+does not implement a separate repair path or apply candidates to uploaded source.
+
+Install the web interface and the Gemini provider:
+
+```bash
+python -m pip install -e ".[web,llm]"
+python -m pip install semgrep
+```
+
+For repair validation, Bubblewrap must also be installed and able to create its
+required namespaces. Configure `GEMINI_API_KEY` on the server in the environment
+or in the existing local `.env` file. The interface does not display the key.
+
+From the repository root, launch the application with:
+
+```bash
+python -m streamlit run app.py
+```
+
+Open the local URL printed by Streamlit (normally `http://localhost:8501`).
+
+### Upload, scan, and repair
+
+1. Select **Source Code Analysis** and upload a ZIP archive of the project.
+   The interface displays the validated file structure before running anything.
+2. Select one or more listed Semgrep configurations. The interface offers
+   fixed registry rulesets and the repository's checked-in, narrowly scoped SQL
+   injection rule. Uploaded Semgrep rules and arbitrary command-line input are
+   not accepted.
+3. Choose **Scan Only** to use `securefix.main scan`, or acknowledge the
+   hosted-model data notice and select **Run Scan and Repair** to invoke
+   `securefix.main run`.
+4. For repair, select the Basic, Structured, or Context Feedback strategy and
+   choose a bounded attempt count from 1 to 10 (the backend's supported limit).
+5. Review **Vulnerability Results**, **AI Repair**, and **Verification**. The
+   **Reports** page lists saved JSON reports and any generated candidate diffs.
+
+Dashboard totals are calculated from report files that actually exist in
+`reports/`. Scan-only runs and repair workflows are counted separately.
+Finding totals count finding records in saved scan and workflow reports; they
+are not deduplicated into unique vulnerabilities. Validated, blocked, failed,
+incomplete, and unknown workflow outcomes are classified separately. Uploaded
+source is extracted into a temporary directory and removed after the CLI
+finishes. SecureFix records reports under `reports/streamlit/`; generated
+reports and patches remain available until removed by the repository operator.
+
+### Interpreting results and security limitations
+
+- Semgrep findings are static-analysis detections, not confirmation that a
+  vulnerability is exploitable. Assess reachability, attacker control, and
+  runtime behavior separately.
+- **VALIDATED** means the configured patch, test, rescan, and original-source
+  integrity checks passed. It is not a guarantee that the application is
+  vulnerability-free. **BLOCKED** means required inputs or prerequisites
+  prevented validation. **FAILED** means a candidate or configured check did
+  not pass.
+- Repair sends the finding and bounded source context to the configured Gemini
+  service. Do not upload code that your organization does not permit sending to
+  that provider.
+- ZIP files are limited to 50 MiB, 2,000 files, 20 MiB per file, and 100 MiB
+  expanded content. Traversal paths, links, special files, high compression
+  ratios, encrypted entries, and unsupported file types are rejected.
+- Scanning is read-only. Repair candidates are applied only in SecureFix's
+  disposable workspace and test execution remains subject to the existing
+  Bubblewrap sandbox. The interface never executes uploaded code directly on
+  the host or weakens the backend sandbox. Bubblewrap is not a guarantee against
+  every kernel or sandbox escape.
+- The dashboard is intended for a trusted local environment. It does not add
+  authentication or multi-user authorization; do not expose the Streamlit
+  server to an untrusted network. Reports contain code-related evidence and
+  should be handled as sensitive data.
+
 The scanner checks for the `semgrep` executable at runtime. If it is missing, SecureFix prints installation instructions and exits without creating a report. The default Semgrep configuration is `auto`, which may require network access. SecureFix explicitly disables Semgrep metrics; Semgrep 1.183.0 rejects `auto` when metrics are disabled. In that environment, pass an explicit ruleset (for example, `--config p/security-audit`, which was verified here) or a local rules file. Do not enable metrics implicitly to work around that Semgrep restriction.
 
 ## Gemini provider configuration
