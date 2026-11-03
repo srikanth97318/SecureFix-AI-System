@@ -421,3 +421,8 @@ Tests mock both Semgrep and Gemini; they do not require a live scanner, API key,
 ## Phase boundary
 
 Phase 1 provides scanning, normalization, context collection, and reports. Phase 2 adds Gemini-backed analysis, three selectable prompts, validated proposals, and reviewable diffs. Phase 3 adds bounded candidate generation/refinement, isolated-copy patching, sandboxed pytest, Semgrep rescanning, integrity checks, and strategy evaluation. **Automatic application to the original project is not implemented:** all candidate modifications remain in disposable copies, and no patch is silently applied to user source files.
+
+
+## Author & coder
+SRI KANTH G
+PES UNIVERSITY
