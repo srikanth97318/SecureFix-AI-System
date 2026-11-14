@@ -425,5 +425,6 @@ Phase 1 provides scanning, normalization, context collection, and reports. Phase
 
 ## Author & coder
 SRI KANTH G
-
+CO FOUNDER & MANAGING DIRECTOR OF
+NAMMA TECH COMMUNITY & PARTNERSHIPS
 
