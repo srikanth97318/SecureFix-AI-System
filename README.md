@@ -427,6 +427,5 @@ Phase 1 provides scanning, normalization, context collection, and reports. Phase
 SRI KANTH G
 
 
-CO FOUNDER & MANAGING DIRECTOR OF
-NAMMA TECH COMMUNITY & PARTNERSHIPS
+CO FOUNDER & MANAGING DIRECTOR OF        NAMMA TECH COMMUNITY & PARTNERSHIPS
 
